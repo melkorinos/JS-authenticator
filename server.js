@@ -57,8 +57,6 @@ app.use(passport.session())
 //method overide , to override POST method
 app.use(methodOverride('_method'))
 
-
-
 // set up the homepage  page route with a request and a response variable
 app.get('/', checkAuthenticated, (req, res) => {
     //render a file as a response and pass a user 
@@ -70,7 +68,7 @@ app.get('/login', checkNotAuthenticated, (req, res) => {
     res.render('login.ejs')
 })
 
-//use the passport authentica
+//use the passport authenticator
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
     //on success takes us to homepage and on fail takes us back to login page.
     successRedirect: '/',
@@ -90,7 +88,7 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
     try {
         //encrypt user password
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        //generate a unique ID and push the rest of the user data in our table
+        //generate a unique ID and push the rest of the user data in our table     PUSH HERE
         users.push({
             id: Date.now().toString(),
             name: req.body.name,
